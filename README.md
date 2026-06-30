@@ -1,86 +1,58 @@
-📂 Project Folder Structure
-Plaintext
-roadsos-emergency-dashboard/
-│
-├── app.py                     # Flask backend application & API routes
-├── requirements.txt           # Python dependencies
-├── .gitignore                 # Files to exclude from Git tracking
-│
-└── templates/
-    └── index.html             # Leaflet.js interactive map & frontend console
-📝 The README.md File
-Markdown
-# 🚨 RoadSOS: Real-Time Emergency Telemetry & Dispatch Console
+# 🚨 RoadSOS: Real-Time Emergency Telemetry & Dispatch Hub
 
-RoadSOS is a lightweight, full-stack emergency dispatch dashboard designed to empower vulnerable or stranded motorists during vehicle breakdowns and accidents. With a single click, users broadcast their identity and live GPS coordinates to a central database while immediately tracking the proximity of critical assets like hospitals, ambulances, and puncture repair services.
+RoadSOS is an intelligent emergency response console designed to empower vulnerable or stranded motorists during vehicle breakdowns and accidents. With a single click, users broadcast their identity and live GPS coordinates to a central database while tracking the proximity of critical assets like hospitals, ambulances, and puncture repair services.
 
 ---
 
-## 💡 Inspiration
+## 💡 Project Description & Problem Solved
+During a roadside emergency, high stress makes it incredibly difficult for motorists to accurately communicate their geographic coordinates. Valuable time is wasted navigating legacy phone hotlines or manually searching maps while device batteries drain. 
 
-During a roadside emergency, stress makes it difficult for motorists to accurately communicate their geographic location. Valuable time is often wasted searching for nearby services while device batteries drain. RoadSOS solves this by creating a zero-friction "one-click" crisis broadcast utility that instantly links stranded nodes to active regional responders.
+**RoadSOS** bridges this gap by creating a zero-friction, one-click crisis broadcast dashboard. It captures raw device telemetry, logs it instantly to a persistent ledger, and provides an end-to-end orchestration command center for automated dispatch.
 
-## 🛠️ Tech Stack & Architecture
+---
 
-- **Frontend Engine:** Semantic HTML5, CSS3 Variables, Vanilla JavaScript (ES6+)
-- **Mapping & Geospatial Platform:** Leaflet.js, OpenStreetMap API
-- **Backend Framework:** Python 3.11, Flask, Flask-CORS
-- **Database & ORM Layer:** SQLite, Flask-SQLAlchemy
-- **Hardware Integration:** W3C Geolocation API (`watchPosition`)
+## 🤖 UiPath Components Used
+To orchestrate and automate the incident dispatch lifecycle, this solution leverages the following core ecosystem tools within the **UiPath Labs Environment**:
+* **UiPath Maestro (Orchestrator):** Serves as the central command node to monitor active backend incoming telemetry feeds from the `/api/db-live-monitor` data stream.
+* **UiPath Agent Builder:** Used to define the cognitive properties, rules, and triggers for dispatching rescue assets once a crisis telemetry point hits the database.
+* **API Workflows:** Used to read real-time data from the Flask API nodes and securely forward automated instructions directly to designated dispatch personnel.
 
-To compute the physical distance between a stranded driver and surrounding rescue fleets, the backend implements the **Haversine formula**:
+---
 
-```text
-d = 2R * arcsin(√[sin²(Δφ/2) + cos(φ1)*cos(φ2)*sin²(Δλ/2)])
-🚀 Quick Start & Installation
-1. Clone the Repository
-Bash
+## ⚙️ Agent Type
+* **Type:** **Low-code Agents** integrated with custom API endpoints. 
+The system relies on declarative low-code business workflows within the UiPath platform to monitor the database state, combined with dynamic custom scripting to handle the underlying mathematical spatial calculations.
+
+---
+
+## 🚀 Setup & Execution Instructions for Judges
+
+### 1. Repository Setup & Dependencies
+```bash
+# Clone the repository
 git clone [https://github.com/YOUR_USERNAME/roadsos-emergency-dashboard.git](https://github.com/YOUR_USERNAME/roadsos-emergency-dashboard.git)
 cd roadsos-emergency-dashboard
-2. Set Up a Virtual Environment & Install Dependencies
-Bash
-# Create environment
+
+# Create and activate environment
 python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
 
-# Activate environment (Windows)
-venv\Scripts\activate
-
-# Activate environment (Mac/Linux)
-source venv/bin/activate
-
-# Install requirements
+# Install required frameworks
 pip install flask flask-cors flask-sqlalchemy
-3. Initialize and Launch the Server
+2. Launching the Telemetry Hub
 Bash
 python app.py
-The application will spin up automatically on http://127.0.0.1:5001/ and cleanly build a fresh roadsos.db SQL instance.
+The server will initialize locally at http://127.0.0.1:5001/ and dynamically create a fresh, clean schema instance of roadsos.db.
 
-🚧 Challenges We Overcame
-Database State Schema Locking: Solved background table schema corruption errors (sqlite3.OperationalError) during layout changes by terminating zombie compiler loops and forcing fresh SQLite migrations.
+3. Evaluating the Solution Workflow
+Open http://127.0.0.1:5001/ in your browser.
 
-Aggressive Browser Caching: Solved stale client-side script parsing by migrating core UI data tables to cache-busting telemetry monitoring routes (/api/db-live-monitor).
+Ensure browser location permissions are granted so the W3C Geolocation API can lock onto your node.
 
-Graceful Error Unpacking: Standardized asynchronous API try/catch payload loops to cleanly extract error dictionaries directly to the viewport rather than throwing generic undefined browser alerts.
+Click 🚨 BROADCAST SOS ALERT.
 
-🧠 Lessons Learned
-Resilient UI Architecture: Building bulletproof fallbacks in asynchronous JavaScript blocks ensures your program degrades gracefully under bad signal conditions instead of breaking entirely.
-
-Data Alignment Core: Maintained exact alignment between backend dictionary mappings and interactive layout properties to prevent pipeline corruption.
+Observe the live console: the data is successfully parsed into the Active Dashboard Monitor and outputted via the Database Row Audit Stream JSON feed, ready for the UiPath Maestro monitoring loop to trigger downstream automations.
 
 
 ---
 
-### 📄 The `.gitignore` File
-Create a file named `.gitignore` in your root folder and add this text so you don't push unnecessary cache or environment files to GitHub:
-
-```text
-# Python bytecode caching
-__pycache__/
-*.pyc
-
-# Virtual environments
-venv/
-ENV/
-
-# Local databases (rebuilt on launch)
-roadsos.db
