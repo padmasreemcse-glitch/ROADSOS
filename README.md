@@ -56,3 +56,5 @@ Observe the live console: the data is successfully parsed into the Active Dashbo
 
 ---
 
+UIPATH STUDIO LINK: https://cloud.uipath.com/roadsos/DefaultTenant/orchestrator_/global
+
